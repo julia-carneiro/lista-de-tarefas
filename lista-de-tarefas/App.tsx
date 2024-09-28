@@ -1,16 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Task } from './src/components/Task';
+import { CreateTask } from './src/components/CreateTask';
 
 export default function App() {
 
   useEffect(() => {
-    console.error('foi!')
+    console.error('ixi')
   },[]);
 
   return (
     <View style={styles.container}>
-      <Text>TESTE</Text>
+      <CreateTask/>
+      <Task />
+      <Task />
+      <Task />
+      <Task />
       <StatusBar style="auto" />
     </View>
   );
@@ -19,8 +25,10 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#fffff2',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 16,
+    gap: 16,
   },
 });
