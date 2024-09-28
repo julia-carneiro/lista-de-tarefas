@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Task } from './src/components/Task';
 import { CreateTask } from './src/components/CreateTask';
+import TaskButtons from './src/components/TaskType';
 
 export default function App() {
 
@@ -13,6 +14,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <CreateTask/>
+      <TaskButtons/>
       <Task />
       <Task />
       <Task />
