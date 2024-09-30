@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, View, TouchableWithoutFeedback, Button } from 'react-native'; // Certifique-se de importar Text
+import { Modal, View, TouchableWithoutFeedback } from 'react-native';
 import { Container, Overlay, Card, InputTask, TextDescription, TextContainer, InputDescription, StyledButton, ButtonText } from './styles';
 import RNPickerSelect from 'react-native-picker-select';
 
@@ -31,8 +31,6 @@ export function Cards({ modalVisible, setModalVisible, onCreateTask }: CardsProp
   const handleCreate = () => {
     if (task && selectedValue) {
       onCreateTask({ task, description, category: selectedValue });
-      setModalVisible(false);
-      categoryNow: selectedValue;
     } else {
       alert('Por favor, preencha todos os campos.');
     }

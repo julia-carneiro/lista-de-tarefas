@@ -9,7 +9,7 @@ import { Cards } from './src/components/Card';
 export default function App() {
   const [tasks, setTasks] = useState<{ description: string; check: boolean; task: string; category: string }[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>('estudos'); // Inicializa com uma categoria
 
   const handleCreateTask = () => {
     setModalVisible(true); 
@@ -26,13 +26,14 @@ export default function App() {
       }
     ]);
     setSelectedCategory(taskData.category); // Define a categoria da nova tarefa
+    setModalVisible(false); // Fecha o modal após adicionar a tarefa
   };
 
   return (
     <View style={styles.container}>
       <CreateTask onCreateTask={handleCreateTask} />
       <View style={{ flexDirection: 'row', gap: 16 }}>
-        <TaskButtons setSelectedCategory={setSelectedCategory} />
+        <TaskButtons setSelectedCategory={setSelectedCategory} selectedCategory={selectedCategory} />
       </View>
       <StatusBar style="auto" />
       <FlatList

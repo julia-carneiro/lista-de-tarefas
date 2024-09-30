@@ -1,32 +1,28 @@
-import React, { useState } from 'react';
-import { TaskButton, Text } from './styles'; // Importa o botão estilizado
+import React from 'react';
+import { TaskButton, Text } from './styles';
 
 interface TaskButtonsProps {
-  setSelectedCategory: (category: string) => void; // Adiciona a prop para definir a categoria
+  setSelectedCategory: (category: string) => void; // Prop para definir a categoria
+  selectedCategory: string | null; // Adiciona a prop para saber qual categoria está selecionada
 }
 
-const TaskButtons = ({ setSelectedCategory }: TaskButtonsProps) => {
-  const [selectedTask, setSelectedTask] = useState<string | null>("study");
-  
+const TaskButtons = ({ setSelectedCategory, selectedCategory }: TaskButtonsProps) => {
   const handleButtonPress = (category: string) => {
-    setSelectedTask(category);
     setSelectedCategory(category); // Atualiza a categoria selecionada
   };
-
 
   return (
     <>
       <TaskButton
-        selected={selectedTask === 'estudos'}
+        selected={selectedCategory === 'estudos'}
         color="#FFF6A2"
         onPress={() => handleButtonPress('estudos')}
-        
       >
         <Text>Estudos</Text>
       </TaskButton>
 
       <TaskButton
-        selected={selectedTask === 'trabalho'}
+        selected={selectedCategory === 'trabalho'}
         color="#FFA2A2"
         onPress={() => handleButtonPress('trabalho')}
       >
@@ -34,7 +30,7 @@ const TaskButtons = ({ setSelectedCategory }: TaskButtonsProps) => {
       </TaskButton>
 
       <TaskButton
-        selected={selectedTask === 'pessoal'}
+        selected={selectedCategory === 'pessoal'}
         color="#B4F67F"
         onPress={() => handleButtonPress('pessoal')}
       >
