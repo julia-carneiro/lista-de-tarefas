@@ -7,16 +7,17 @@ interface TaskProps {
     task: string;
     description: string;
     category: string;
+    onDelete: () => void; 
 }
 
-export function Task({ task, description, category }: TaskProps) {
+export function Task({ task, description, category, onDelete }: TaskProps) {
     return (
         <Container>
             <TaskDone>
                 <Feather name="circle" size={24} color="#33363F" />
             </TaskDone>
             <TaskText>{task}</TaskText>
-            <TaskDelete>
+            <TaskDelete onPress={onDelete}> 
                 <Feather name="trash" size={24} color="white" />
             </TaskDelete>
         </Container>

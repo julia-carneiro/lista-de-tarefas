@@ -29,6 +29,10 @@ export default function App() {
     setModalVisible(false); // Fecha o modal após adicionar a tarefa
   };
 
+  const handleDeleteTask = (taskToDelete: string) => {
+    setTasks(prevTasks => prevTasks.filter(task => task.task !== taskToDelete));
+  };
+  
   return (
     <View style={styles.container}>
       <CreateTask onCreateTask={handleCreateTask} />
@@ -46,6 +50,7 @@ export default function App() {
             task={item.task} 
             description={item.description} 
             category={item.category} 
+            onDelete={() => handleDeleteTask(item.task)} // Passa a função de exclusão
           />
         )}
         ListEmptyComponent={() => (
