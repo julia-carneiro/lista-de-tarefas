@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { Text, Modal, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Text, Modal, View, TouchableWithoutFeedback } from 'react-native';
 import { Container, Overlay, Card } from './styles';
 import RNPickerSelect from 'react-native-picker-select';
-import styled from 'styled-components';
 
 interface CardsProps {
   modalVisible: boolean;
@@ -18,6 +17,13 @@ const items = [
 export function Cards({ modalVisible, setModalVisible }: CardsProps) {
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
 
+  // Reseta o selectedValue quando o modal é aberto
+  useEffect(() => {
+    if (modalVisible) {
+      setSelectedValue(null); 
+    }
+  }, [modalVisible]);
+
   // Função para obter a cor correspondente ao valor selecionado
   const getPickerColor = () => {
     const selectedItem = items.find(item => item.value === selectedValue);
@@ -32,33 +38,36 @@ export function Cards({ modalVisible, setModalVisible }: CardsProps) {
         animationType="fade"
         onRequestClose={() => setModalVisible(false)}
       >
-        <Overlay>
-          <Card>
-            <View style={{ 
-              width: '100%', 
-              borderRadius: 14
-              }}>
-              <View
-                style={{
-                  borderRadius: 14,
-                  overflow: 'hidden',
-                  backgroundColor: getPickerColor(), // Muda a cor de fundo baseado na seleção
-                }}
-              >
-                {/*Dropdown da categoria*/}
-                <RNPickerSelect
-                  onValueChange={(value) => setSelectedValue(value)}
-                  items={items}
-                  placeholder={{
-                    label: 'Selecione uma categoria...',
-                    value: null
-                  }}
-                />
-              </View>
-            </View>
-            <Text>Este é o conteúdo do card!</Text>
-          </Card>
-        </Overlay>
+        <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
+          <Overlay>
+            <TouchableWithoutFeedback>
+              <Card>
+                <View style={{ 
+                  width: '100%', 
+                  borderRadius: 14
+                }}>
+                  <View
+                    style={{
+                      borderRadius: 14,
+                      overflow: 'hidden',
+                      backgroundColor: getPickerColor(), // Muda a cor de fundo baseado na seleção
+                    }}
+                  >
+                    {/*Dropdown da categoria*/}
+                    <RNPickerSelect
+                      onValueChange={(value) => setSelectedValue(value)}
+                      items={items}
+                      placeholder={{
+                        label: 'Selecione uma categoria...',
+                        value: null
+                      }}
+                    />
+                  </View>
+                </View>
+              </Card>
+            </TouchableWithoutFeedback>
+          </Overlay>
+        </TouchableWithoutFeedback>
       </Modal>
     </Container>
   );
