@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Text } from 'react-native';
-import { TaskButton } from './styles'; // Importa o botão estilizado
+import { TaskButton, Text } from './styles'; // Importa o botão estilizado
 
 const TaskButtons = () => {
   const [selectedTask, setSelectedTask] = useState<string | null>(null);
@@ -12,7 +11,7 @@ const TaskButtons = () => {
         color="#FFF6A2"
         onPress={() => setSelectedTask('study')}
       >
-        <Text>Study</Text>
+        <Text>Estudos</Text>
       </TaskButton>
 
       <TaskButton
@@ -20,7 +19,7 @@ const TaskButtons = () => {
         color="#FFA2A2"
         onPress={() => setSelectedTask('work')}
       >
-        <Text>Work</Text>
+        <Text>Trabalho</Text>
       </TaskButton>
 
       <TaskButton
@@ -28,7 +27,7 @@ const TaskButtons = () => {
         color="#B4F67F"
         onPress={() => setSelectedTask('personal')}
       >
-        <Text>Personal</Text>
+        <Text>Pessoal</Text>
       </TaskButton>
     </>
   );
