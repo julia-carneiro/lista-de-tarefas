@@ -1,15 +1,23 @@
-import {Container, TaskText, TaskDone, TaskDelete} from './styles'
-import {Feather} from '@expo/vector-icons'
+// src/components/Task.tsx
+import React from 'react';
+import { Container, TaskText, TaskDone, TaskDelete } from './styles';
+import { Feather } from '@expo/vector-icons';
 
-export function Task(){
-    return(
+interface TaskProps {
+    task: string;
+    description: string;
+    category: string;
+}
+
+export function Task({ task, description, category }: TaskProps) {
+    return (
         <Container>
             <TaskDone>
-                <Feather name="circle" size={24} color="#33363F"/>
+                <Feather name="circle" size={24} color="#33363F" />
             </TaskDone>
-            <TaskText>Tarefa teste</TaskText>
+            <TaskText>{task}</TaskText>
             <TaskDelete>
-                <Feather name="trash" size={24} color="white"/>
+                <Feather name="trash" size={24} color="white" />
             </TaskDelete>
         </Container>
     );

@@ -1,33 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { Text, Modal, View, TouchableWithoutFeedback } from 'react-native';
-import { Container, Overlay, Card } from './styles';
+import { Modal, View, TouchableWithoutFeedback } from 'react-native'; // Certifique-se de importar Text
+import { Container, Overlay, Card, InputTask, TextDescription, TextContainer, InputDescription, StyledButton, ButtonText } from './styles';
 import RNPickerSelect from 'react-native-picker-select';
 
 interface CardsProps {
   modalVisible: boolean;
   setModalVisible: (visible: boolean) => void;
+  onCreateTask: (taskData: { task: string; description: string; category: string }) => void;
 }
 
 const items = [
-  { label: 'Estudos', value: 'estudos', backgroundColor: '#FFF6A2' }, // Cor para "Estudos"
-  { label: 'Trabalho', value: 'trabalho', backgroundColor: '#FFA2A2' }, // Cor para "Trabalho"
-  { label: 'Pessoal', value: 'pessoal', backgroundColor: '#B4F67F' }, // Cor para "Pessoal"
+  { label: 'Estudos', value: 'estudos', backgroundColor: '#FFF6A2' },
+  { label: 'Trabalho', value: 'trabalho', backgroundColor: '#FFA2A2' },
+  { label: 'Pessoal', value: 'pessoal', backgroundColor: '#B4F67F' },
 ];
 
-export function Cards({ modalVisible, setModalVisible }: CardsProps) {
+export function Cards({ modalVisible, setModalVisible, onCreateTask }: CardsProps) {
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
+  const [task, setTask] = useState('');
+  const [description, setDescription] = useState('');
 
-  // Reseta o selectedValue quando o modal é aberto
   useEffect(() => {
     if (modalVisible) {
-      setSelectedValue(null); 
+      setTask('');
+      setDescription('');
+      setSelectedValue(null);
     }
   }, [modalVisible]);
 
-  // Função para obter a cor correspondente ao valor selecionado
-  const getPickerColor = () => {
-    const selectedItem = items.find(item => item.value === selectedValue);
-    return selectedItem ? selectedItem.backgroundColor : '#f0f0f0'; // Cor padrão
+  const handleCreate = () => {
+    if (task && selectedValue) {
+      onCreateTask({ task, description, category: selectedValue });
+      setModalVisible(false);
+    } else {
+      alert('Por favor, preencha todos os campos.');
+    }
   };
 
   return (
@@ -42,18 +49,17 @@ export function Cards({ modalVisible, setModalVisible }: CardsProps) {
           <Overlay>
             <TouchableWithoutFeedback>
               <Card>
-                <View style={{ 
-                  width: '100%', 
-                  borderRadius: 14
-                }}>
-                  <View
-                    style={{
-                      borderRadius: 14,
-                      overflow: 'hidden',
-                      backgroundColor: getPickerColor(), // Muda a cor de fundo baseado na seleção
-                    }}
-                  >
-                    {/*Dropdown da categoria*/}
+                <InputTask 
+                  placeholder="Digite sua tarefa" 
+                  value={task}
+                  onChangeText={setTask} 
+                />
+                <View style={{ width: '100%', borderRadius: 14 }}>
+                  <View style={{
+                    borderRadius: 14,
+                    overflow: 'hidden',
+                    backgroundColor: items.find(item => item.value === selectedValue)?.backgroundColor || '#f0f0f0',
+                  }}>
                     <RNPickerSelect
                       onValueChange={(value) => setSelectedValue(value)}
                       items={items}
@@ -64,6 +70,17 @@ export function Cards({ modalVisible, setModalVisible }: CardsProps) {
                     />
                   </View>
                 </View>
+                <TextContainer>
+                  <TextDescription>Descrição</TextDescription>
+                </TextContainer>
+                <InputDescription
+                  placeholder="Digite a descrição" 
+                  value={description}
+                  onChangeText={setDescription} 
+                />
+                <StyledButton onPress={handleCreate}>
+                  <ButtonText>Criar Tarefa</ButtonText>
+                </StyledButton>
               </Card>
             </TouchableWithoutFeedback>
           </Overlay>

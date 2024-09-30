@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TaskButton, Text } from './styles'; // Importa o botão estilizado
 
 const TaskButtons = () => {
-  const [selectedTask, setSelectedTask] = useState<string | null>(null);
+  const [selectedTask, setSelectedTask] = useState<string | null>("study");
 
   return (
     <>
