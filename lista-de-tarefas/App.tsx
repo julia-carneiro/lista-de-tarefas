@@ -9,6 +9,7 @@ import { Cards } from './src/components/Card';
 export default function App() {
   const [tasks, setTasks] = useState<{ description: string; check: boolean; task: string; category: string }[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const handleCreateTask = () => {
     setModalVisible(true); 
@@ -20,33 +21,36 @@ export default function App() {
       {
         task: taskData.task,
         description: taskData.description,
-        check: false, // Inicialmente, a tarefa não está marcada como concluída
+        check: false,
         category: taskData.category,
       }
     ]);
+    setSelectedCategory(taskData.category); // Define a categoria da nova tarefa
   };
 
   return (
     <View style={styles.container}>
       <CreateTask onCreateTask={handleCreateTask} />
       <View style={{ flexDirection: 'row', gap: 16 }}>
-        <TaskButtons />
+        <TaskButtons setSelectedCategory={setSelectedCategory} />
       </View>
       <StatusBar style="auto" />
       <FlatList
-        data={tasks}
+        data={tasks.filter(task => 
+          selectedCategory ? task.category === selectedCategory : true
+        )}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
-            <Task 
-                task={item.task} 
-                description={item.description} 
-                category={item.category} 
-            />
+          <Task 
+            task={item.task} 
+            description={item.description} 
+            category={item.category} 
+          />
         )}
         ListEmptyComponent={() => (
-            <View>
-                <Text>Nenhuma tarefa cadastrada</Text>
-            </View>
+          <View>
+            <Text>Nenhuma tarefa cadastrada</Text>
+          </View>
         )}
       />
 
