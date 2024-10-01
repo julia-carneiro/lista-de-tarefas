@@ -5,58 +5,34 @@ import { Task } from './src/components/Task';
 import { CreateTask } from './src/components/CreateTask';
 import TaskButtons from './src/components/TaskType';
 import { Cards } from './src/components/Card';
+import { TaskProvider, useTaskContext } from './src/context/TaskContext';
 
 export default function App() {
-  const [tasks, setTasks] = useState<{ description: string; check: boolean; task: string; category: string }[]>([]);
+  return (
+    <TaskProvider>
+      <MainApp />
+    </TaskProvider>
+  );
+}
+
+function MainApp() {
+  const { tasks, addTask } = useTaskContext();
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>('estudos'); // Inicializa com uma categoria
 
   const handleCreateTask = () => {
-    setModalVisible(true); 
+    setModalVisible(true);
   };
 
   const handleAddTask = (taskData: { task: string; description: string; category: string; check: boolean }) => {
-    setTasks(prevTasks => [
-      {
-        task: taskData.task,
-        description: taskData.description,
-        check: false, // Tarefas criadas começam como não concluídas
-        category: taskData.category,
-      },
-      ...prevTasks,
-    ]);
+    addTask({
+      task: taskData.task,
+      description: taskData.description,
+      check: false, // Tarefas criadas começam como não concluídas
+      category: taskData.category,
+    });
     setSelectedCategory(taskData.category); // Define a categoria da nova tarefa
     setModalVisible(false); // Fecha o modal após adicionar a tarefa
-  };
-
-  const handleDeleteTask = (taskToDelete: string) => {
-    Alert.alert(
-      "Atenção!",
-      `Deseja realmente remover a tarefa ${taskToDelete}?`,
-      [
-        {
-          text: "Cancelar",
-          style: "cancel",
-        },
-        {
-          text: "Confirmar",
-          onPress: () => {
-            setTasks(prevTasks => prevTasks.filter(task => task.task !== taskToDelete));
-          },
-        },
-      ],
-      { cancelable: true } 
-    );
-  };
-
-  const handleCheckTask = (taskToCheck: string) => {
-    setTasks(prevTasks =>
-      prevTasks.map(task =>
-        task.task === taskToCheck
-          ? { ...task, check: !task.check } // Alterna o estado do check
-          : task
-      ).sort((a, b) => Number(a.check) - Number(b.check)) // Ordena, colocando os checked no final
-    );
   };
 
   return (
@@ -67,9 +43,7 @@ export default function App() {
       </View>
       <StatusBar style="auto" />
       <FlatList
-        data={tasks.filter(task => 
-          selectedCategory ? task.category === selectedCategory : true
-        )}
+        data={tasks.filter(task => selectedCategory ? task.category === selectedCategory : true)}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           <Task 
@@ -77,8 +51,6 @@ export default function App() {
             description={item.description} 
             category={item.category} 
             check={item.check} // Passa o estado de check
-            onCheck={() => handleCheckTask(item.task)} // Lida com a marcação da tarefa
-            onDelete={() => handleDeleteTask(item.task)} // Lida com a exclusão da tarefa
           />
         )}
         ListEmptyComponent={() => (
