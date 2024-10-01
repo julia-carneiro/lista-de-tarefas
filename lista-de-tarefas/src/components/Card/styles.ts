@@ -13,8 +13,8 @@ export const Overlay = styled.View`
 `;
 
 export const Card = styled.View`
-  width: 320px;
-  height: 480px;
+  width: 330px;
+  height: 500px;
   padding: 20px;
   background-color: white;
   border-radius: 10px;
@@ -44,15 +44,15 @@ export const InputDescription = styled.TextInput`
 `;
 
 export const TextContainer = styled.View`
-    align-self: flex-start; /* Alinha ao canto superior esquerdo */
-    margin-top: 20px;
-    margin-bottom: 20px; /* Espaço abaixo do texto, se necessário */
+    align-self: flex-start; 
+    margin-top: 10px;
+    margin-bottom: 10px; 
 `;
 
 export const TextDescription = styled.Text`
     color: #33363F;
     font-size: 20px;
-    font-weight: 700;
+    font-weight: medium;
     margin-left: 3px;
 `;
 
@@ -61,12 +61,11 @@ export const StyledButton = styled.TouchableOpacity`
   border-radius: 14px; 
   padding: 10px 20px; 
   align-items: center;
-  justify-content: center; 
-  margin-top: 10px; 
+  justify-content: center;  
 `;
 
 export const ButtonText = styled.Text`
   color: #333;
-  font-size: 16px;
-  font-weight: bold; 
+  font-size: 20px;
+  font-weight: medium; 
 `;

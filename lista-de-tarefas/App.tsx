@@ -36,7 +36,6 @@ export default function App() {
       [
         {
           text: "Cancelar",
-          onPress: () => console.log("Cancelado"),
           style: "cancel",
         },
         {
@@ -46,7 +45,7 @@ export default function App() {
           },
         },
       ],
-      { cancelable: false } // opcional, se você quiser que o alerta não possa ser fechado ao clicar fora
+      { cancelable: true } 
     );
   };
 

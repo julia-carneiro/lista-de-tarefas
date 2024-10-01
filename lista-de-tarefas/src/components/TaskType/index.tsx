@@ -16,7 +16,7 @@ const TaskButtons = ({ setSelectedCategory, selectedCategory }: TaskButtonsProps
       <TaskButton
         selected={selectedCategory === 'estudos'}
         color="#FFF6A2"
-        onCreateTask={() => handleButtonPress('estudos')}
+        onPress={() => handleButtonPress('estudos')}
       >
         <Text>Estudos</Text>
       </TaskButton>
@@ -24,7 +24,7 @@ const TaskButtons = ({ setSelectedCategory, selectedCategory }: TaskButtonsProps
       <TaskButton
         selected={selectedCategory === 'trabalho'}
         color="#FFA2A2"
-        onCreateTask={() => handleButtonPress('trabalho')}
+        onPress={() => handleButtonPress('trabalho')}
       >
         <Text>Trabalho</Text>
       </TaskButton>
@@ -32,7 +32,7 @@ const TaskButtons = ({ setSelectedCategory, selectedCategory }: TaskButtonsProps
       <TaskButton
         selected={selectedCategory === 'pessoal'}
         color="#B4F67F"
-        onCreateTask={() => handleButtonPress('pessoal')}
+        onPress={() => handleButtonPress('pessoal')}
       >
         <Text>Pessoal</Text>
       </TaskButton>

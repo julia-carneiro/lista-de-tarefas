@@ -48,6 +48,9 @@ export function Cards({ modalVisible, setModalVisible, onCreateTask }: CardsProp
           <Overlay>
             <TouchableWithoutFeedback>
               <Card>
+                <TextContainer>
+                  <TextDescription>Título</TextDescription>
+                </TextContainer>
                 <InputTask 
                   placeholder="Digite sua tarefa" 
                   value={task}
