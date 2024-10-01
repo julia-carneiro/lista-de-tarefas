@@ -23,6 +23,7 @@ export const TaskDone = styled.TouchableOpacity`
     height: 50px;
     justify-content: center;
     align-items: center;
+    
 `;
 
 export const TaskDelete = styled.TouchableOpacity`

@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { Alert, FlatList, StyleSheet, Text, View } from 'react-native';
 import { Task } from './src/components/Task';
 import { CreateTask } from './src/components/CreateTask';
 import TaskButtons from './src/components/TaskType';
@@ -15,24 +15,51 @@ export default function App() {
     setModalVisible(true); 
   };
 
-  const handleAddTask = (taskData: { task: string; description: string; category: string }) => {
+  const handleAddTask = (taskData: { task: string; description: string; category: string; check: boolean }) => {
     setTasks(prevTasks => [
-      ...prevTasks,
       {
         task: taskData.task,
         description: taskData.description,
-        check: false,
+        check: false, // Tarefas criadas começam como não concluídas
         category: taskData.category,
-      }
+      },
+      ...prevTasks,
     ]);
     setSelectedCategory(taskData.category); // Define a categoria da nova tarefa
     setModalVisible(false); // Fecha o modal após adicionar a tarefa
   };
 
   const handleDeleteTask = (taskToDelete: string) => {
-    setTasks(prevTasks => prevTasks.filter(task => task.task !== taskToDelete));
+    Alert.alert(
+      "Atenção!",
+      `Deseja realmente remover a tarefa ${taskToDelete}?`,
+      [
+        {
+          text: "Cancelar",
+          onPress: () => console.log("Cancelado"),
+          style: "cancel",
+        },
+        {
+          text: "Confirmar",
+          onPress: () => {
+            setTasks(prevTasks => prevTasks.filter(task => task.task !== taskToDelete));
+          },
+        },
+      ],
+      { cancelable: false } // opcional, se você quiser que o alerta não possa ser fechado ao clicar fora
+    );
   };
-  
+
+  const handleCheckTask = (taskToCheck: string) => {
+    setTasks(prevTasks =>
+      prevTasks.map(task =>
+        task.task === taskToCheck
+          ? { ...task, check: !task.check } // Alterna o estado do check
+          : task
+      ).sort((a, b) => Number(a.check) - Number(b.check)) // Ordena, colocando os checked no final
+    );
+  };
+
   return (
     <View style={styles.container}>
       <CreateTask onCreateTask={handleCreateTask} />
@@ -50,7 +77,9 @@ export default function App() {
             task={item.task} 
             description={item.description} 
             category={item.category} 
-            onDelete={() => handleDeleteTask(item.task)} // Passa a função de exclusão
+            check={item.check} // Passa o estado de check
+            onCheck={() => handleCheckTask(item.task)} // Lida com a marcação da tarefa
+            onDelete={() => handleDeleteTask(item.task)} // Lida com a exclusão da tarefa
           />
         )}
         ListEmptyComponent={() => (

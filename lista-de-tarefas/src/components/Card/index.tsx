@@ -6,7 +6,7 @@ import RNPickerSelect from 'react-native-picker-select';
 interface CardsProps {
   modalVisible: boolean;
   setModalVisible: (visible: boolean) => void;
-  onCreateTask: (taskData: { task: string; description: string; category: string }) => void;
+  onCreateTask: (taskData: {  task: string; description: string; category: string; check: boolean; }) => void;
 }
 
 const items = [
@@ -30,7 +30,7 @@ export function Cards({ modalVisible, setModalVisible, onCreateTask }: CardsProp
 
   const handleCreate = () => {
     if (task && selectedValue) {
-      onCreateTask({ task, description, category: selectedValue });
+      onCreateTask({ task, description, category: selectedValue, check: false });
     } else {
       alert('Por favor, preencha todos os campos.');
     }
