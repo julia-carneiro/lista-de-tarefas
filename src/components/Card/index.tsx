@@ -10,9 +10,9 @@ interface CardsProps {
 }
 
 const items = [
-  { label: 'Estudos', value: 'estudos', backgroundColor: '#FFF6A2' },
-  { label: 'Trabalho', value: 'trabalho', backgroundColor: '#FFA2A2' },
-  { label: 'Pessoal', value: 'pessoal', backgroundColor: '#B4F67F' },
+  { label: 'Estudos', value: 'Estudos', backgroundColor: '#FFF6A2' },
+  { label: 'Trabalho', value: 'Trabalho', backgroundColor: '#FFA2A2' },
+  { label: 'Pessoal', value: 'Pessoal', backgroundColor: '#B4F67F' },
 ];
 
 export function Cards({ modalVisible, setModalVisible, onCreateTask }: CardsProps) {

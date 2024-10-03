@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, TaskText, TaskDone, TaskDelete } from './styles';
 import { Feather } from '@expo/vector-icons';
 import { useTaskContext } from '../../context/TaskContext';
+import { TasksProps, RootStackParamList } from '../../utils/types';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
 
+type Props = NativeStackScreenProps<RootStackParamList>;
 
-
-interface TaskProps {
-  task: string;
-  description: string;
-  category: string;
-  check: boolean; // Prop para definir se a tarefa está concluída
-}
-
-export function Task({ task, description, category, check }: TaskProps) {
+export function Task({id, task, description, category, check }: TasksProps) {
+  
   const { deleteTask, checkTask } = useTaskContext();
+  const [] = useState<TasksProps>({id, task, description, category, check });
+  const navigation = useNavigation<Props['navigation']>();
+  
+  const handlePress = () => {
+    navigation.navigate('Details', {id, task, description, category, check});
+  };
 
   const handleDelete = () => {
     deleteTask(task);
@@ -23,8 +26,9 @@ export function Task({ task, description, category, check }: TaskProps) {
     checkTask(task);
   };
 
+
   return (
-    <Container>
+    <Container onPress={() => handlePress()}>
       <TaskDone onPress={handleCheck} style={{ backgroundColor: check ? '#CDFFB1' : '#B6B6B6' }}>
         <Feather name={check ? "check-circle" : "circle"} size={24} color="#33363F" />
       </TaskDone>

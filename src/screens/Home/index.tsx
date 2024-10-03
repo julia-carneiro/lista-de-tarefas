@@ -1,24 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { Alert, FlatList, StyleSheet, Text, View } from 'react-native';
-import { Task } from './src/components/Task';
-import { CreateTask } from './src/components/CreateTask';
-import TaskButtons from './src/components/TaskType';
-import { Cards } from './src/components/Card';
-import { TaskProvider, useTaskContext } from './src/context/TaskContext';
+import { Task } from '../../components/Task';
+import { CreateTask } from '../../components/CreateTask';
+import TaskButtons from '../../components/TaskType';
+import { Cards } from '../../components/Card';
+import { TaskProvider, useTaskContext } from '../../context/TaskContext';
 
-export default function App() {
+
+export default function Home() {
   return (
     <TaskProvider>
-      <MainApp />
+      <MainPage />
     </TaskProvider>
   );
 }
 
-function MainApp() {
+function MainPage() {
   const { tasks, addTask } = useTaskContext();
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>('estudos'); // Inicializa com uma categoria
+  const [selectedCategory, setSelectedCategory] = useState<string | null>('Estudos'); // Inicializa com uma categoria
 
   const handleCreateTask = () => {
     setModalVisible(true);
