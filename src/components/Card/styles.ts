@@ -14,7 +14,7 @@ export const Overlay = styled.View`
 
 export const Card = styled.View`
   width: 330px;
-  height: 500px;
+  height: 510px;
   padding: 20px;
   background-color: white;
   border-radius: 10px;
@@ -27,7 +27,7 @@ export const InputTask = styled.TextInput`
   background-color: #f0f0f0;
   border-radius: 8px; 
   padding: 10px; 
-  margin-bottom: 20px; 
+  margin-bottom: 7px; 
   font-size: 20px; 
   color: #333; 
 `;
@@ -46,7 +46,7 @@ export const InputDescription = styled.TextInput`
 export const TextContainer = styled.View`
     align-self: flex-start; 
     margin-top: 10px;
-    margin-bottom: 10px; 
+    margin-bottom: 7px; 
 `;
 
 export const TextDescription = styled.Text`
@@ -68,4 +68,9 @@ export const ButtonText = styled.Text`
   color: #333;
   font-size: 20px;
   font-weight: medium; 
+`;
+
+export const ErrorText = styled.Text`
+  color: red; 
+  font-size: 12px; 
 `;
