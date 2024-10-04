@@ -32,8 +32,8 @@ export const TitleContainer = styled.View`
 
 export const Title = styled.Text`
     color: #2D2D2D;
-    font-size: 25px;
-    font-weight: 500;
+    font-size: 40px;
+    font-weight: 700;
 `
 export const Description = styled.Text`
   width: 100%; 

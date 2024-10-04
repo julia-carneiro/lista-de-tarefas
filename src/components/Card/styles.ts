@@ -52,8 +52,9 @@ export const TextContainer = styled.View`
 export const TextDescription = styled.Text`
     color: #33363F;
     font-size: 20px;
-    font-weight: medium;
+    font-weight: 700;
     margin-left: 3px;
+    
 `;
 
 export const StyledButton = styled.TouchableOpacity`
