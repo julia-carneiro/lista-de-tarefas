@@ -1,7 +1,6 @@
 
 
 export type TasksProps = {
-    id: number
     task: string;
     description: string;
     category: string;

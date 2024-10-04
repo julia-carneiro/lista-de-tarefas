@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Container, Description, TaskCategory, Title, TitleContainer, TopButton, TopContainer, TopText } from './styles';
 import { Feather } from '@expo/vector-icons';
 import { RootStackParamList } from '../../utils/types';
@@ -7,9 +7,9 @@ import { useNavigation } from '@react-navigation/native';
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 
-export default function Details({route}: any){
-
-    const{id, task,description, category, check} = route.params;
+// Tela de detalhes - acontece quando uma tarefa é clicada
+export default function Details({ route }: any) {
+    const { task, description, category } = route.params;
     
     const navigation = useNavigation<Props['navigation']>();
 
@@ -26,7 +26,9 @@ export default function Details({route}: any){
                 <TaskCategory category={category}>
                     <TopText>{category}</TopText>
                 </TaskCategory>
-                <Description>{description}</Description>
+                <Description>
+                    {description || "Tarefa sem descrição adicionada"} {/* Texto padrão */}
+                </Description>
             </TitleContainer>
         </Container>
     );

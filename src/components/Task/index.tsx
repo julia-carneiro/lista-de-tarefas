@@ -8,17 +8,17 @@ import { useNavigation } from '@react-navigation/native';
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 
-export function Task({id, task, description, category, check }: TasksProps) {
+export function Task({ task, description, category, check }: TasksProps) {
   
-  const { deleteTask, checkTask } = useTaskContext();
-  const [] = useState<TasksProps>({id, task, description, category, check });
-  const navigation = useNavigation<Props['navigation']>();
+  const { deleteTask, checkTask } = useTaskContext(); //Funções de deletar e checar tarefa
+  const [] = useState<TasksProps>({ task, description, category, check }); 
+  const navigation = useNavigation<Props['navigation']>(); 
   
-  const handlePress = () => {
-    navigation.navigate('Details', {id, task, description, category, check});
+  const handlePress = () => { //Navegação para pagina de detalhes
+    navigation.navigate('Details', { task, description, category, check}); 
   };
 
-  const handleDelete = () => {
+  const handleDelete = () => { 
     deleteTask(task);
   };
 

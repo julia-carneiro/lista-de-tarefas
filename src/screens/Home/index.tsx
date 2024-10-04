@@ -1,13 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { Alert, FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { Task } from '../../components/Task';
 import { CreateTask } from '../../components/CreateTask';
 import TaskButtons from '../../components/TaskType';
 import { Cards } from '../../components/Card';
 import { TaskProvider, useTaskContext } from '../../context/TaskContext';
 
-
+// Componente principal que envolve a aplicação em TaskProvider
 export default function Home() {
   return (
     <TaskProvider>
@@ -17,14 +17,15 @@ export default function Home() {
 }
 
 function MainPage() {
-  const { tasks, addTask } = useTaskContext();
-  const [modalVisible, setModalVisible] = useState(false);
+  const { tasks, addTask } = useTaskContext(); // Obtém tarefas e função para adicionar
+  const [modalVisible, setModalVisible] = useState(false); // Estado para visibilidade do modal
   const [selectedCategory, setSelectedCategory] = useState<string | null>('Estudos'); // Inicializa com uma categoria
 
   const handleCreateTask = () => {
     setModalVisible(true);
   };
 
+  // Lida com a criação de uma nova tarefa
   const handleAddTask = (taskData: { task: string; description: string; category: string; check: boolean }) => {
     addTask({
       task: taskData.task,
@@ -38,7 +39,7 @@ function MainPage() {
 
   return (
     <View style={styles.container}>
-      <CreateTask onCreateTask={handleCreateTask} />
+      <CreateTask onCreateTask={handleCreateTask} /> 
       <View style={{ flexDirection: 'row', gap: 16 }}>
         <TaskButtons setSelectedCategory={setSelectedCategory} selectedCategory={selectedCategory} />
       </View>
@@ -62,7 +63,12 @@ function MainPage() {
       />
 
       {/* Cards que controla o modal */}
-      <Cards modalVisible={modalVisible} setModalVisible={setModalVisible} onCreateTask={handleAddTask} />
+      <Cards 
+        modalVisible={modalVisible} 
+        setModalVisible={setModalVisible} 
+        onCreateTask={handleAddTask} 
+        existingTasks={tasks.map(task => task.task)} // Passando os nomes das tarefas existentes
+      />
     </View>
   );
 }

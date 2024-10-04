@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Modal, TouchableWithoutFeedback, Text, View } from 'react-native';
+import React from 'react';
+import { Modal, TouchableWithoutFeedback, View } from 'react-native';
 import { Container, Overlay, Card, InputTask, TextDescription, TextContainer, InputDescription, StyledButton, ButtonText, ErrorText } from './styles';
 import RNPickerSelect from 'react-native-picker-select';
 import { Formik } from 'formik';
@@ -9,6 +9,7 @@ interface CardsProps {
   modalVisible: boolean;
   setModalVisible: (visible: boolean) => void;
   onCreateTask: (taskData: { task: string; description: string; category: string; check: boolean; }) => void;
+  existingTasks: string[];  
 }
 
 const items = [
@@ -24,10 +25,17 @@ const validationSchema = Yup.object().shape({
   category: Yup.string().required('A categoria é obrigatória.'),
 });
 
-export function Cards({ modalVisible, setModalVisible, onCreateTask }: CardsProps) {
+// Componente Cards para criar uma nova tarefa - é um modal
+export function Cards({ modalVisible, setModalVisible, onCreateTask, existingTasks }: CardsProps) {
 
   const handleCreate = (values: { task: string; description: string; category: string; }) => {
-    onCreateTask({ ...values, check: false });
+    // Verifica se já existe uma tarefa com o mesmo nome
+    if (existingTasks.includes(values.task)) {
+      alert('Uma tarefa com esse nome já existe. Por favor, escolha um nome diferente.');  
+      return;
+    }
+    
+    onCreateTask({ ...values, check: false }); // Cria a tarefa se não houver duplicatas
   };
 
   return (
@@ -52,7 +60,7 @@ export function Cards({ modalVisible, setModalVisible, onCreateTask }: CardsProp
                       <TextContainer>
                         <TextDescription>Título</TextDescription>
                         {errors.task && touched.task && (
-                        <ErrorText>{errors.task}</ErrorText>
+                          <ErrorText>{errors.task}</ErrorText>
                         )}
                       </TextContainer>
                       
@@ -93,7 +101,7 @@ export function Cards({ modalVisible, setModalVisible, onCreateTask }: CardsProp
                         value={values.description}
                       />
                       
-                      <StyledButton onPress={() => { handleSubmit(); }}>
+                      <StyledButton onPress={() => { handleSubmit()}}>
                         <ButtonText>Criar Tarefa</ButtonText>
                       </StyledButton>
                     </>
@@ -107,4 +115,3 @@ export function Cards({ modalVisible, setModalVisible, onCreateTask }: CardsProp
     </Container>
   );
 }
-

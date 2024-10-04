@@ -7,6 +7,7 @@ interface CreateTaskProps {
   onCreateTask: () => void;
 }
 
+//Componente de criar tarefa - ao clicar, abre o modal "Card"
 export function CreateTask({ onCreateTask }: CreateTaskProps) {
   return (
     <Container onPress={onCreateTask}>
